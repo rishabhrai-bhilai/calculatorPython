@@ -1,0 +1,24 @@
+---
+- name: Deploy calculator app
+  hosts: localhost
+  tasks:
+    - name: Pull Docker image from Docker Hub
+      docker_image:
+        name: rishabh8797/calculator-app  
+        source: pull
+
+    - name: Stop and remove existing container (if exists)
+      docker_container:
+        name: calculator-container
+        state: absent
+      ignore_errors: yes
+
+    - name: Run Docker container
+      docker_container:
+        name: calculator-container
+        image: rishabh8797/calculator-app:latest
+        state: started
+        ports:
+          - "8081:8081"
+        command: python3 /app/calculator.py
+        # detach: yes
