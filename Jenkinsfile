@@ -48,7 +48,7 @@ pipeline {
         
         stage('Deployment with Ansible') {
             steps {
-                ansiblePlaybook playbook: 'deploy.yml', inventory: 'hosts', extras: "-e DOCKER_IMAGE=$DOCKER_USERNAME/calculator-app"
+                ansiblePlaybook playbook: 'deploy.yml', inventory: 'hosts'
             }
         }
 

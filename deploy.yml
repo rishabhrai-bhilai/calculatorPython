@@ -13,12 +13,10 @@
         state: absent
       ignore_errors: yes
 
-    - name: Run Docker container
-      docker_container:
-        name: calculator-container
-        image: rishabh8797/calculator-app:latest
+    - name: Start Docker service
+      service:
+        name: docker
         state: started
-        ports:
-          - "8081:8081"
-        command: python3 /app/calculator.py
-        # detach: yes
+
+    - name: Running container
+      shell: docker run -it -d --name calculator-container rishabh8797/calculator-app
